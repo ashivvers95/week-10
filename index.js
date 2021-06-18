@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require('fs');
 
-const questions = function () {
+const initialQuestions = function () {
 return inquirer
 .prompt([
       { 
@@ -26,23 +26,89 @@ return inquirer
             choices: ['Engineer', 'Intern', 'Manager']
       }
 ])
+ .then(({role}) => {
+      if(role === 'Engineer') {
+            inquirer
+            .prompt({
+                  type: 'input',
+                  name: 'github',
+                  message: 'Please input your team members github.'
+            })
+      };
+      if (role === 'Intern'){
+            inquirer
+            .prompt({
+                  type: 'input',
+                  name: 'school',
+                  message: 'Please input your team members school.'
+            })
+      };
+      if(role === 'Manager') {
+            inquirer
+            .prompt([
+            {
+                  type: 'input',
+                  name: 'number',
+                  message: 'Please input your team members office number.'
+            }
+      ])
+      }
+
+ })
  .then(function(data) {
-   fs.writeFile('./dist/index.html', data => {
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <div>${data}<div>
-    </body>
-    </html>`
-   })
-  })
- }
-   questions();
+       console.log(data)
+ })
+ };
+
+// const engineerQuestions = function () {
+//       return inquirer
+//       .prompt([
+//             {
+//                   type: 'input',
+//                   name: 'github',
+//                   message: 'Please input your team members github.'
+//             }
+//       ])
+// }
+
+// const internQuestions = function () {
+//       return inquirer
+//       .prompt([
+//             {
+//                   type: 'input',
+//                   name: 'school',
+//                   message: 'Please input your team members school.'
+//             }
+//       ])
+// }
+
+// const managerQuestions = function () {
+//       return inquirer
+//       .prompt([
+//             {
+//                   type: 'input',
+//                   name: 'number',
+//                   message: 'Please input your team members office number.'
+//             }
+//       ])
+// }
+
+ initialQuestions();
 
 
+//  (function(data) {
+//       fs.writeFile('./dist/index.html', data => {
+//        return `<!DOCTYPE html>
+//        <html lang="en">
+//        <head>
+//            <meta charset="UTF-8">
+//            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+//            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//            <title>Document</title>
+//        </head>
+//        <body>
+//            <div>${data}<div>
+//        </body>
+//        </html>`
+//       })
+//      })
